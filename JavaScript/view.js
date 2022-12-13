@@ -1,7 +1,7 @@
 start();
 function start() {
   let html = /*HTML*/ `
-    <button onclick ="runCycle(0)"> Do not click </button>
+    <button onclick ="runCycle()"> Do not click </button>
     `;
   model.view.innerHTML = html;
 }
