@@ -6,7 +6,6 @@ function runCycle() {
   if (model.time > model.cycle) {
     clearTimeout(timer);
     model.time = 0;
-    model.cycle = model.cycle + model.cycle;
     pauseTime();
   }
 }
@@ -17,36 +16,32 @@ function pauseTime() {
   if (model.time > model.pause) {
     clearTimeout(timer);
     model.time = 0;
+    model.current++;
+    if (model.current > model.repetition) {
+      model.current = 0;
+      model.cycle = model.cycle + model.cycle;
+    }
     runCycle();
   }
 }
-function randomBox(){
-    showBox(colorPicker(), randomizer(50, 100), randomizer(50, 100), "submit");
+function randomBox() {
+  let red = randomizer(0, 255);
+  let green = randomizer(0, 255);
+  let blue = randomizer(0, 255);
+
+  showBox(
+    `rgb(${red}, ${green}, ${blue})`,
+    randomizer(50, 100),
+    randomizer(50, 100),
+    `rgb(${colorPicker(red)}, ${colorPicker(green)}, ${colorPicker(blue)})`,
+    "submit"
+  );
 }
-function colorPicker(){
-    //skriv noe fancy for å hex this shit
-    let hexColor = "#";
-    for (i = 0; i < 6; i++){
-        let currentNum = randomizer(0, 15);
-        if (currentNum == 10){
-            currentNum = "A"
-        } else if(currentNum == 11){
-            currentNum = "B"
-        }else if(currentNum == 12){
-            currentNum = "C"
-        }else if(currentNum == 13){
-            currentNum = "D"
-        }else if(currentNum == 14){
-            currentNum = "E"
-        }else if(currentNum == 15){
-            currentNum = "F"
-        }
-        hexColor += currentNum
-        console.log(hexColor);
-    }
-    return hexColor;
+function colorPicker(value) {
+  let invertedColor = 255 - value;
+  return invertedColor;
 }
 
-function randomizer(yourMin, yourMax){
-    return Math.floor(Math.random()*yourMax)+yourMin;
+function randomizer(yourMin, yourMax) {
+  return Math.floor(Math.random() * yourMax) + yourMin;
 }

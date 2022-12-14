@@ -4,5 +4,6 @@ const model = {
     pause: 3,
     time: 0,
     repetition: 5,
+    current: 0,
 
 };
